@@ -1,0 +1,29 @@
+{
+  "name": "teste2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e": "cypress run --headless --browser chrome --no-exit",
+    "test:report": "yarn report:merge & yarn report:generate",
+    "report:merge": "mochawesome-merge > mochawesome-report/report.json",
+    "report:generate": "marge mochawesome-report//\\report.json"
+  },
+  "keywords": [
+    "cypress"
+  ],
+  "author": "Ana Carolina",
+  "license": "MIT",
+  "dependencies": {
+    "cypress": "7.1.0",
+    "mocha": "8.3.2",
+    "mochawesome": "6.2.2",
+    "mochawesome-merge": "4.2.0"
+  },
+  "devDependencies": {
+    "cypress-cucumber-preprocessor": "4.0.3"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  }
+}
