@@ -18,6 +18,7 @@ jobs:
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
         with:
+          install: false
           run: npm cache clean -force
           install-command: npm install
           wait-on: ${{ secrets.BASE_URL }}
