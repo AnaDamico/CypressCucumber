@@ -1,19 +1,28 @@
-name: Cypress Regression Tests
+name: test
 
-on: [push]
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - main
+      - releases/*
+    paths-ignore:
+      - '**.md'
 
 jobs:
-
-  ui-chrome-tests:
+  build:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node14.17.0-chrome88-ff89
-      options: --user 1001
-    strategy:
-      fail-fast: false
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+      - run: npm install
+      - run: npm test
       
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
@@ -24,5 +33,3 @@ jobs:
           browser: chrome
           group: 'UI - Chrome'
           spec: cypress/integration/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
